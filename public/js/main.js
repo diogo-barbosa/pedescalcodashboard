@@ -79,15 +79,13 @@ var getContent = function(id){
 }
 
 var updateTable = function(viewType){
-    //getTableContent();
-    
     if(currentPage == "home"){
         if(viewType == "Bilhetes"){
             $('.thead-dark').html(tableHeadersTicket);
-            $('.table-body').html(tableRowsTicket);
+            getTickets();
         } else {
             $('.thead-dark').html(tableHeadersBar);
-            $('.table-body').html(tableRowsBar);
+            $('.table-body').html(getBar());
         }
     }
 }
@@ -196,5 +194,39 @@ function updatePriceBar(){
             }
             $('.price').val(price);
         }
+    }
+}
+
+function getTickets(){
+    if(currentPage == "home"){
+        var tickets = "";
+        var i = 0;
+        $.get("/api/get-tickets", function(data, status){
+            data.forEach(function(ticket){
+                if(ticket != null){
+                    var ticketDom = `<tr>
+                        <td style="background: `+ticket.color+`"></td>
+                        <td>`+ticket.ticket+`</td>
+                        <td>`+ticket.price+`</td>
+                        <td>`+ticket.datetime+`</td>
+                        <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>`
+                    tickets = ticketDom + tickets;
+                    i++;
+                } else {
+                    i++;
+                }
+            });
+            $('.table-body').html(tickets);
+            $('.delete-ticket').click(function(){
+                const id = this.id;
+                console.log(id);
+                $.post("/api/delete-tickets",
+                {
+                    index: id,
+                });
+                getTickets();
+            });
+        })
     }
 }

@@ -58,7 +58,7 @@ var register = `<div class="heading">
 <p>Aqui é feito o registo das entradas no parque.</p>
 </div>
 
-<form class="ticket-form">
+<form class="ticket-form" method="POST" action="/api/post-ticket">
 <div class="form-group">
     <label for="color">Cor Identificadora</label>
     <select name="color" id="color" class="form-control color">
@@ -142,20 +142,14 @@ var barSection = `<div class="heading">
 var tableHeadersTicket = `<th>Cor Identificadora</th>
 <th>Bilhete</th>
 <th>Preço</th>
-<th>Data e Hora</th>`;
+<th>Data e Hora</th>
+<th>Eliminar</th>`;
 
 var tableHeadersBar = `<th>Item</th>
 <th>Quantidade</th>
 <th>Preço</th>
-<th>Data e Hora</th>`;
-
-var tableRowsTicket = `<tr>
-<td <!--style="background: red"--></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>`;
-var tableRowsBar = ``;
+<th>Data e Hora</th>
+<th>Eliminar</th>`;
 
 var blueTickets = `<option selected value="0">Individual (1 pessoa)</option>
 <option value="1">Duplo (2 pessoas)</option>

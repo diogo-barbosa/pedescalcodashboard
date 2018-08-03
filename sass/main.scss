@@ -15,11 +15,11 @@ body {
 #side-menu{
     background: $purple-light;
     width: 280px;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
-    height: 100vh;
+    height: 100%;
     #logo-image {
         display: block;
         margin: 0 auto;
