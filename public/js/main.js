@@ -11,7 +11,22 @@ $(document).ready(function(){
     var chart = createChart();
     //----
     updateTable(viewType);
-
+    $('#confirm-when').click(function(){
+        if(currentPage == "home"){
+            if($('#datepicker').val() == ""){
+                $('.when').text("Desde Sempre - " + viewType);
+                updateTable(viewType);
+            } else {
+                var splitted = $('#datepicker').val().split('-');
+                var datestring = splitted[2] + "-" + splitted[1] + "-" + splitted[0];
+                $('.when').text(datestring + " - " + viewType);
+                updateTable(viewType, datestring);
+            }
+        }
+    });
+    $('.view-type').change(function(){
+        viewType = $('.view-type').val();
+    });
     //----DEBUG----
     //-------------
 
