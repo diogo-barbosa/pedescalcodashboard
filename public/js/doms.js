@@ -23,11 +23,15 @@ var homeSection = `<div class="heading">
 
 <div class="col-md-4">
     <div class="card simple-card">
-        <h6>Data para visualização</h6>
+        <h6>Opções de visualização</h6>
         <span class="when">
-            Desde Sempre
+            Desde Sempre - Bilhetes
         </span>
         <input type="date" name="datepicker" id="datepicker">
+        <select class="form-control view-type" style="margin-top: 15px">
+            <option selected value="Bilhetes">Bilhetes</option>
+            <option value="Bar">Bar</option>
+        </select>
         <button type="button" class="btn btn-success" id="confirm-when">Confirmar</button>
     </div>
 </div>
@@ -42,10 +46,7 @@ var homeSection = `<div class="heading">
 
 <table class="table">
 <thead class="thead-dark">
-    <th>Cor Identificadora</th>
-    <th>Bilhete</th>
-    <th>Preço</th>
-    <th>Data e Hora</th>
+    
 </thead>
 <tbody class="table-body">
     
@@ -94,12 +95,23 @@ var register = `<div class="heading">
 <button type="submit" class="btn btn-primary register-button">Registar</button>
 </form>`;
 
-var tableRows = `<tr>
+var tableHeadersTicket = `<th>Cor Identificadora</th>
+<th>Bilhete</th>
+<th>Preço</th>
+<th>Data e Hora</th>`;
+
+var tableHeadersBar = `<th>Item</th>
+<th>Quantidade</th>
+<th>Preço</th>
+<th>Data e Hora</th>`;
+
+var tableRowsTicket = `<tr>
 <td style="background: red"></td>
 <td>4</td>
 <td>25€</td>
 <td>02/08/2018</td>
 </tr>`;
+var tableRowsBar = ``;
 
 var blueTickets = `<option selected value="0">Individual (1 pessoa)</option>
 <option value="1">Duplo (2 pessoas)</option>

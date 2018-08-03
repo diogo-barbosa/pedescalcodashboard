@@ -2,8 +2,9 @@ var currentPage;
 $(document).ready(function(){
 
     currentPage = "home";
+    var viewType = "Bilhetes";
     $('.content-area').html(getContent(currentPage));
-    updateTable();
+    updateTable(viewType);
 
     //----DEBUG----
     
@@ -16,12 +17,18 @@ $(document).ready(function(){
         currentPage = $(this).attr('id');
         $('.content-area').html(getContent(currentPage));
         if(currentPage == "home") {
-            updateTable();
+            updateTable(viewType);
         } else if(currentPage == "register"){
-            currentPage = "register";
+                //----REGISTER----
             $('.date-input').val(getDate());
             $('.time-input').val(getTime());
+            $('.color').change(function(){updateTickets();});
+            $('.ticket').change(function(){updatePrice();});
+            $('.manually').change(function(){
+                $('.price').attr("readonly", !this.checked);
+            });
             updateTickets();
+                //----------------
         }
     });
     //--------------
@@ -30,24 +37,20 @@ $(document).ready(function(){
     $('#confirm-when').click(function(){
         if(currentPage == "home"){
             if($('#datepicker').val() == ""){
-                $('.when').text("Desde Sempre");
+                $('.when').text("Desde Sempre - " + viewType);
             } else {
-                $('.when').text($('#datepicker').val());
+                var splitted = $('#datepicker').val().split('-');
+                var datestring = splitted[2] + "-" + splitted[1] + "-" + splitted[0];
+                $('.when').text(datestring + " - " + viewType);
             }
-            updateTable();
+            updateTable(viewType);
         }
+    });
+    $('.view-type').change(function(){
+        viewType = $('.view-type').val();
     });
     //------------
 
-    //----REGISTER----
-    $('.manually').change(function(){
-        $('.price').attr("readonly", !this.checked);
-    });
-
-    $('.color').change(function(){updateTickets();});
-    $('.ticket').change(function(){updatePrice();});
-
-    //----------------
 });
 
 var getContent = function(id){
@@ -62,10 +65,17 @@ var getContent = function(id){
     }
 }
 
-var updateTable = function(){
+var updateTable = function(viewType){
     //getTableContent();
+    
     if(currentPage == "home"){
-        $('.table-body').html(tableRows);
+        if(viewType == "Bilhetes"){
+            $('.thead-dark').html(tableHeadersTicket);
+            $('.table-body').html(tableRowsTicket);
+        } else {
+            $('.thead-dark').html(tableHeadersBar);
+            $('.table-body').html(tableRowsBar);
+        }
     }
 }
 
