@@ -7,7 +7,6 @@ $(document).ready(function(){
     updateTable(viewType);
 
     //----DEBUG----
-    
     //-------------
 
     //----GLOBAL----
@@ -29,6 +28,16 @@ $(document).ready(function(){
             });
             updateTickets();
                 //----------------
+        } else if(currentPage == "bar"){
+                //----BAR----
+            $('.date-input').val(getDate());
+            $('.time-input').val(getTime());
+            $('.item').change(function(){$('.quantity').val("1"); updatePriceBar();});
+            $('.quantity').change(function(){updatePriceBar();});
+            $('.manually').change(function(){
+                $('.price').attr("readonly", !this.checked);
+            });
+                //-----------
         }
     });
     //--------------
@@ -60,6 +69,10 @@ var getContent = function(id){
             break;
         case "register":
             return register;
+            break;
+        case "bar":
+            return barSection;
+            break;
         default:
             return "Not implemented yet"; 
     }
@@ -150,5 +163,38 @@ function updateTickets(){
         }
         $('.ticket').html(dom);
         updatePrice();
+    }
+}
+
+function updatePriceBar(){
+    if(currentPage == "bar"){
+        if(!$('.manually').checked){
+            var price;
+            var quantity = $('.quantity').val();
+            switch($('.item').val()){
+                case "0":
+                    price = 12*quantity;
+                    break;
+                case "1":
+                    price = 12*quantity;
+                    break;
+                case "2":
+                    price = 10*quantity;
+                    break;
+                case "3":
+                    price = 1*quantity;
+                    break;
+                case "4":
+                    price = 1*quantity;
+                    break;
+                case "5":
+                    price = 1*quantity;
+                    break;
+                case "6":
+                    price = 0.5*quantity;
+                    break;
+            }
+            $('.price').val(price);
+        }
     }
 }

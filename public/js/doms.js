@@ -61,7 +61,7 @@ var register = `<div class="heading">
 <form class="ticket-form">
 <div class="form-group">
     <label for="color">Cor Identificadora</label>
-    <select id="color" class="form-control color">
+    <select name="color" id="color" class="form-control color">
         <option selected style="background: blue; color: blue;" value="blue">Azul</option>
         <option style="background: red; color: red;" value="red">Vermelho</option>
         <option style="background: black; color: black;" value="black">Preto</option>
@@ -69,14 +69,14 @@ var register = `<div class="heading">
 </div>
 <div class="form-group">
         <label for="ticket">Bilhete</label>
-        <select id="ticket" class="form-control ticket">
+        <select name="ticket" id="ticket" class="form-control ticket">
             
         </select>
 </div>
 <div class="form-row">
     <div class="form-group col-md-9">
         <label for="price">Preço</label>
-        <input type="number" readonly value="5" required class="form-control price">
+        <input name="price" type="number" readonly value="5" required class="form-control price">
     </div>
     <div class="form-group col-md-3">
         <label for="manual">Definir Manualmente</label>
@@ -86,11 +86,55 @@ var register = `<div class="heading">
 
 <div class="form-group">
     <label for="date">Data de Registo</label>
-    <input required type="date" class="form-control date-input">
+    <input name="date" required type="date" class="form-control date-input">
 </div>
 <div class="form-group">
     <label for="time">Hora de Registo</label>
-    <input required type="time" class="form-control time-input">
+    <input name="time" required type="time" class="form-control time-input">
+</div>
+<button type="submit" class="btn btn-primary register-button">Registar</button>
+</form>`;
+
+var barSection = `<div class="heading">
+<h1>Bar</h1>
+<p>Aqui é feito o registo das vendas do bar.</p>
+</div>
+
+<form class="ticket-form">
+<div class="form-group">
+    <label for="item">Item</label>
+    <select id="item" class="form-control item">
+        <option selected value="0">Tábua Sensações 1</option>
+        <option value="1">Tábua Sensações 2</option>
+        <option value="2">Vinho</option>
+        <option value="3">Sumo</option>
+        <option value="4">Café</option>
+        <option value="5">Água 1,5l</option>
+        <option value="6">Água 33cl</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="quantity">Quantidade</label>
+    <input type="number" name="quantity" required value="1" autocomplete="off" class="form-control quantity">
+</div>
+<div class="form-row">
+    <div class="form-group col-md-9">
+        <label for="price">Preço</label>
+        <input type="number" name="price" readonly value="12" required class="form-control price">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="manual">Definir Manualmente</label>
+        <input type="checkbox" class="form-control manually">
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="date">Data de Registo</label>
+    <input required type="date" name="date" class="form-control date-input">
+</div>
+<div class="form-group">
+    <label for="time">Hora de Registo</label>
+    <input required type="time" name="time" class="form-control time-input">
 </div>
 <button type="submit" class="btn btn-primary register-button">Registar</button>
 </form>`;
@@ -106,10 +150,10 @@ var tableHeadersBar = `<th>Item</th>
 <th>Data e Hora</th>`;
 
 var tableRowsTicket = `<tr>
-<td style="background: red"></td>
-<td>4</td>
-<td>25€</td>
-<td>02/08/2018</td>
+<td <!--style="background: red"--></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>`;
 var tableRowsBar = ``;
 
@@ -121,4 +165,4 @@ var redTickets = `<option selected value="3">Pack Duplo (2 pessoas)</option>
 <option value="4">Pack Familiar (3 a 4 pessoas)</option>
 <option value="5">Pack Grupo Grande (Máx. 8 pessoas)</option>`;
 
-var blackTickets = "<option selected value='6'>Bilhete Laranja-Limão</option>"
+var blackTickets = "<option selected value='6'>Bilhete Laranja-Limão</option>";
