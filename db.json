@@ -1,18 +1,4 @@
 {
-  "tickets": [
-    {
-      "color": "blue",
-      "ticket": "Individual",
-      "price": "5",
-      "datetime": "03-08-2018 23:39"
-    }
-  ],
-  "bar": [
-    {
-      "item": "Tábua Sensações 1",
-      "quantity": "1",
-      "price": "12",
-      "datetime": "03-08-2018 23:40"
-    }
-  ]
+  "tickets": [],
+  "bar": []
 }
