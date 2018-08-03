@@ -1,0 +1,85 @@
+.content-area {
+    margin-left: 280px;
+    padding: 15px;
+    .heading {
+        h1 {
+            color: purple;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 10px;;
+        }
+        p {
+            color: #1b1b1b;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+    }
+
+    .cards{
+        .card {
+            background: white;
+            border-radius: 5px;
+            height: 100%;
+        }
+        .image-card{
+            padding-bottom: 10px;
+            .comp-name {
+                font-size: 1rem;
+                color: purple;
+                display: block;
+                text-align: center;
+                margin: 10px 0;
+            }
+            .comp-title{
+                display: block;
+                font-size: 0.8rem;
+                text-align: center;
+                margin: 10px 0;
+            }
+            .location-text {
+                float: right;
+                margin-right: 10%;
+                text-align: right;
+                width: 100%;
+            }
+            .location {
+                width: 100%;
+                margin-left: 10%;
+                font-weight: bold;
+            }
+        }
+        .simple-card{
+            padding: 20px;
+            h6 {
+                color: purple;
+                text-align: center;
+            }
+            .when {
+                font-size: 2em;
+                text-align: center;
+                font-weight: 100;
+                margin-top: 10%;
+            }
+            input {
+                display: block;
+                margin: 0 auto;
+                margin-top: 20%;
+            }
+            #confirm-when {
+                position: absolute;
+                bottom: 20px;
+                width: 100%;
+                left: 0;
+                border-radius: 0;
+            }
+        }
+    }
+
+    .table {
+        margin-top: 20px;
+        margin-right: 15px;
+        td, th {
+            text-align: center; 
+        }
+    }
+}
