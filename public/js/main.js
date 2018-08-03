@@ -47,12 +47,13 @@ $(document).ready(function(){
         if(currentPage == "home"){
             if($('#datepicker').val() == ""){
                 $('.when').text("Desde Sempre - " + viewType);
+                updateTable(viewType);
             } else {
                 var splitted = $('#datepicker').val().split('-');
                 var datestring = splitted[2] + "-" + splitted[1] + "-" + splitted[0];
                 $('.when').text(datestring + " - " + viewType);
+                updateTable(viewType, datestring);
             }
-            updateTable(viewType);
         }
     });
     $('.view-type').change(function(){
@@ -78,14 +79,22 @@ var getContent = function(id){
     }
 }
 
-var updateTable = function(viewType){
+var updateTable = function(viewType, date){
     if(currentPage == "home"){
         if(viewType == "Bilhetes"){
             $('.thead-dark').html(tableHeadersTicket);
-            getTickets();
+            if(date != null){
+                getTickets(date);
+            } else {
+                getTickets();
+            }
         } else {
             $('.thead-dark').html(tableHeadersBar);
-            getBar();
+            if(date != null){
+                getBar(date);
+            } else {
+                getBar();
+            }
         }
     }
 }
@@ -197,13 +206,23 @@ function updatePriceBar(){
     }
 }
 
-function getTickets(){
+function getTickets(date){
     if(currentPage == "home"){
         var tickets = "";
         var i = 0;
         $.get("/api/get-tickets", function(data, status){
             data.forEach(function(ticket){
-                if(ticket != null){
+                if(ticket != null && date == null){
+                    var ticketDom = `<tr>
+                        <td style="background: `+ticket.color+`"></td>
+                        <td>`+ticket.ticket+`</td>
+                        <td>`+ticket.price+`</td>
+                        <td>`+ticket.datetime+`</td>
+                        <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>`
+                    tickets = ticketDom + tickets;
+                    i++;
+                } else if(ticket != null && date != null && ticket.datetime.startsWith(date)) {
                     var ticketDom = `<tr>
                         <td style="background: `+ticket.color+`"></td>
                         <td>`+ticket.ticket+`</td>
@@ -220,7 +239,6 @@ function getTickets(){
             $('.table-body').html(tickets);
             $('.delete-ticket').click(function(){
                 const id = this.id;
-                console.log(id);
                 $.post("/api/delete-tickets",
                 {
                     index: id,
@@ -231,6 +249,48 @@ function getTickets(){
     }
 }
 
-function getBar() {
-    $('.table-body').html("");
+function getBar(date) {
+    console.log("GETBAR");
+    if(currentPage == "home"){
+        var bars = "";
+        var i = 0;
+        $.get("/api/get-bar", function(data, status){
+            data.forEach(function(bar){
+                if(bar != null && date == null){
+                    var barDom = `<tr>
+                        <td>`+bar.item+`</td>
+                        <td>`+bar.quantity+`</td>
+                        <td>`+bar.price+`</td>
+                        <td>`+bar.datetime+`</td>
+                        <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>`
+                    bars = barDom + bars;
+                    i++;
+                } else if(bar != null && date != null && bar.datetime.startsWith(date)){
+                    console.log(date);
+                    console.log(bar.datetime);
+                    var barDom = `<tr>
+                        <td>`+bar.item+`</td>
+                        <td>`+bar.quantity+`</td>
+                        <td>`+bar.price+`</td>
+                        <td>`+bar.datetime+`</td>
+                        <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>`
+                    bars = barDom + bars;
+                    i++;
+                } else {
+                    i++;
+                }
+            });
+            $('.table-body').html(bars);
+            $('.delete-bar').click(function(){
+                const id = this.id;
+                $.post("/api/delete-bar",
+                {
+                    index: id,
+                });
+                getBar();
+            });
+        })
+    }
 }

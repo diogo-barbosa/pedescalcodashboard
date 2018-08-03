@@ -100,10 +100,10 @@ var barSection = `<div class="heading">
 <p>Aqui é feito o registo das vendas do bar.</p>
 </div>
 
-<form class="ticket-form">
+<form class="bar-form" method="POST" action="/api/post-bar">
 <div class="form-group">
     <label for="item">Item</label>
-    <select id="item" class="form-control item">
+    <select id="item" class="form-control item" name="item">
         <option selected value="0">Tábua Sensações 1</option>
         <option value="1">Tábua Sensações 2</option>
         <option value="2">Vinho</option>
