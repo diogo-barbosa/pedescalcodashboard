@@ -85,7 +85,7 @@ var updateTable = function(viewType){
             getTickets();
         } else {
             $('.thead-dark').html(tableHeadersBar);
-            $('.table-body').html(getBar());
+            getBar();
         }
     }
 }
@@ -229,4 +229,8 @@ function getTickets(){
             });
         })
     }
+}
+
+function getBar() {
+    $('.table-body').html("");
 }
