@@ -38,7 +38,7 @@ var homeSection = `<div class="heading">
 
 <div class="col-md-4">
     <div class="card simple-card">
-
+        <canvas id="chart" width="100" height="100" style="width: 100%"></canvas>
     </div>
 </div>
 
