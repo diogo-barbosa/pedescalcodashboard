@@ -55,22 +55,26 @@
                 text-align: center;
             }
             .when {
-                font-size: 1.5em;
+                font-size: 1.2em;
                 text-align: center;
                 font-weight: 100;
-                margin-top: 10%;
+                margin-top: 0.6em;
+            }
+            label {
+                text-align: center;
+            }
+            label[for=datepicker]{
+                margin-top: 1em;
             }
             input {
                 display: block;
                 margin: 0 auto;
-                margin-top: 20%;
             }
             #confirm-when {
                 position: absolute;
-                bottom: 20px;
+                bottom: 0;
                 width: 100%;
                 left: 0;
-                border-radius: 0;
             }
         }
     }

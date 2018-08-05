@@ -1,7 +1,7 @@
 var currentPage;
 
 $(document).ready(function(){
-
+    var singleDate = true;
     currentPage = "home";
     var viewType = "Bilhetes";
     $('.content-area').html(getContent(currentPage));
@@ -18,7 +18,13 @@ $(document).ready(function(){
                 updateTable(viewType);
             } else {
                 var splitted = $('#datepicker').val().split('-');
-                var datestring = splitted[2] + "-" + splitted[1] + "-" + splitted[0];
+                var datestring1 = splitted[2] + "-" + splitted[1] + "-" + splitted[0];
+                var datestring2 = "";
+                if($('#datepicker2').val() != ""){
+                    var splitted2 = $('#datepicker2').val().split('-');
+                    datestring2 = "/" + splitted2[2] + "-" + splitted2[1] + "-" + splitted2[0];
+                }
+                var datestring = datestring1 + datestring2;
                 $('.when').text(datestring + " - " + viewType);
                 updateTable(viewType, datestring);
             }
@@ -269,26 +275,50 @@ $(document).ready(function(){
                             <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>`
                         tickets = ticketDom + tickets;
-                        i++;
-                    } else if(ticket != null && date != null && ticket.datetime.startsWith(date)) {
-                        var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))];
-                        if(thisvalue != null){
-                            dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))] = 1;
-                        } else {
-                            dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))] += 1;
+                    } else if(ticket != null && date != null) {
+                        if(date.includes('/')){
+                            var ticketDateArray = ticket.datetime.split(" ")[0].split('-');
+                            var ticketDate = new Date(ticketDateArray[2], ticketDateArray[1], ticketDateArray[0]);
+                            var dateFromArray = date.split('/')[0].split('-');
+                            var dateToArray = date.split('/')[1].split('-');
+                            var dateFrom = new Date(dateFromArray[2], dateFromArray[1], dateFromArray[0]);
+                            var dateTo = new Date(dateToArray[2], dateToArray[1], dateToArray[0]);
+
+                            if(ticketDate >= dateFrom && ticketDate <= dateTo){
+                                var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))];
+                                if(thisvalue != null){
+                                    dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))] = 1;
+                                } else {
+                                    dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))] += 1;
+                                }
+                                var ticketDom = `<tr>
+                                    <td style="background: `+ticket.color+`"></td>
+                                    <td>`+ticket.ticket+`</td>
+                                    <td>`+ticket.price+`</td>
+                                    <td>`+ticket.datetime+`</td>
+                                    <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                                </tr>`
+                                tickets = ticketDom + tickets;
+                            }
+
+                        } else if(ticket.datetime.startsWith(date)){
+                            var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))];
+                            if(thisvalue != null){
+                                dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))] = 1;
+                            } else {
+                                dataChart.datasets[0].data[dataChart.labels.indexOf(translateColor(ticket.color))] += 1;
+                            }
+                            var ticketDom = `<tr>
+                                <td style="background: `+ticket.color+`"></td>
+                                <td>`+ticket.ticket+`</td>
+                                <td>`+ticket.price+`</td>
+                                <td>`+ticket.datetime+`</td>
+                                <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                            </tr>`
+                            tickets = ticketDom + tickets;
+                            }  
                         }
-                        var ticketDom = `<tr>
-                            <td style="background: `+ticket.color+`"></td>
-                            <td>`+ticket.ticket+`</td>
-                            <td>`+ticket.price+`</td>
-                            <td>`+ticket.datetime+`</td>
-                            <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
-                        </tr>`
-                        tickets = ticketDom + tickets;
-                        i++;
-                    } else {
-                        i++;
-                    }
+                    i++;
                 });
                 $('.table-body').html(tickets);
                 chart.data = dataChart;
@@ -346,26 +376,49 @@ $(document).ready(function(){
                             <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>`
                         bars = barDom + bars;
-                        i++;
-                    } else if(bar != null && date != null && bar.datetime.startsWith(date)){
-                        var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)];
-                        if(thisvalue != null){
-                            dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)] = thisvalue + parseInt(bar.quantity);
-                        } else {
-                            dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)] = parseInt(bar.quantity);
+                    } else if(bar != null && date != null) {
+                        if(date.includes('/')){
+                            var barDateArray = bar.datetime.split(" ")[0].split('-');
+                            var barDate = new Date(barDateArray[2], barDateArray[1], barDateArray[0]);
+                            var dateFromArray = date.split('/')[0].split('-');
+                            var dateToArray = date.split('/')[1].split('-');
+                            var dateFrom = new Date(dateFromArray[2], dateFromArray[1], dateFromArray[0]);
+                            var dateTo = new Date(dateToArray[2], dateToArray[1], dateToArray[0]);
+
+                            if(barDate >= dateFrom && barDate <= dateTo){
+                                var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)];
+                                if(thisvalue != null){
+                                    dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)] = thisvalue + parseInt(bar.quantity);
+                                } else {
+                                    dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)] = parseInt(bar.quantity);
+                                }
+                                var barDom = `<tr>
+                                    <td>`+bar.item+`</td>
+                                    <td>`+bar.quantity+`</td>
+                                    <td>`+bar.price+`</td>
+                                    <td>`+bar.datetime+`</td>
+                                    <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                                </tr>`
+                                bars = barDom + bars;
+                            } 
+                        } else if(bar.datetime.startsWith(date)){
+                            var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)];
+                            if(thisvalue != null){
+                                dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)] = thisvalue + parseInt(bar.quantity);
+                            } else {
+                                dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)] = parseInt(bar.quantity);
+                            }
+                            var barDom = `<tr>
+                                <td>`+bar.item+`</td>
+                                <td>`+bar.quantity+`</td>
+                                <td>`+bar.price+`</td>
+                                <td>`+bar.datetime+`</td>
+                                <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
+                            </tr>`
+                            bars = barDom + bars;
                         }
-                        var barDom = `<tr>
-                            <td>`+bar.item+`</td>
-                            <td>`+bar.quantity+`</td>
-                            <td>`+bar.price+`</td>
-                            <td>`+bar.datetime+`</td>
-                            <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
-                        </tr>`
-                        bars = barDom + bars;
-                        i++;
-                    } else {
-                        i++;
                     }
+                    i++;
                 });
                 chart.data = dataChart;
                 chart.update();

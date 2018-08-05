@@ -22,12 +22,15 @@ var homeSection = `<div class="heading">
 </div>
 
 <div class="col-md-4">
-    <div class="card simple-card">
+    <div class="card simple-card date-holder">
         <h6>Opções de visualização</h6>
         <span class="when">
             Desde Sempre - Bilhetes
         </span>
+        <label for="datepicker">De</label>
         <input type="date" name="datepicker" id="datepicker">
+        <label for="datepicker2">Até</label>
+        <input type="date" name="datepicker2" id="datepicker2">
         <select class="form-control view-type" style="margin-top: 15px">
             <option selected value="Bilhetes">Bilhetes</option>
             <option value="Bar">Bar</option>
