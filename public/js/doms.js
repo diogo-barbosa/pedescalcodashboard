@@ -107,8 +107,8 @@ var barSection = `<div class="heading">
 <div class="form-group">
     <label for="item">Item</label>
     <select id="item" class="form-control item" name="item">
-        <option selected value="0">Tábua Sensações 1</option>
-        <option value="1">Tábua Sensações 2</option>
+        <option selected value="0">Tábua 10 Sensações</option>
+        <option value="1">Tábua Agridoce</option>
         <option value="2">Vinho</option>
         <option value="3">Sumo</option>
         <option value="4">Café</option>

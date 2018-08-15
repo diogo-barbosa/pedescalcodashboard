@@ -82,9 +82,9 @@ function getTicketName(ticket){
 function getItem(item){
     switch(item){
         case "0":
-            return "Tábua Sensações 1";
+            return "Tábua 10 Sensações";
         case "1":
-            return "Tábua Sensações 2";
+            return "Tábua Agridoce";
         case "2":
             return "Vinho";
         case "3":

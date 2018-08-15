@@ -349,7 +349,7 @@ $(document).ready(function(){
             var bars = "";
             
             var dataChart = {
-                labels: ["Tábua Sensações 1", "Tábua Sensações 2", "Vinho", "Sumo", "Café", "Água 1,5l", "Água 33cl"],
+                labels: ["Tábua 10 Sensações", "Tábua Agridoce", "Vinho", "Sumo", "Café", "Água 1,5l", "Água 33cl"],
                 datasets: [
                     {
                       label: "Quantidade",
