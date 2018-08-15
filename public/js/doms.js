@@ -41,7 +41,12 @@ var homeSection = `<div class="heading">
 
 <div class="col-md-4">
     <div class="card simple-card">
-        <canvas id="chart" width="100" height="100" style="width: 100%"></canvas>
+        <div style="width: 100%; height: 90%">
+            <canvas id="chart" width="2em" height="2em"></canvas>
+        </div>
+        <div style="width: 100%; height: 10%">
+            <h5 id="money">Total de Faturação: #NUM €</h5>
+        </div>
     </div>
 </div>
 

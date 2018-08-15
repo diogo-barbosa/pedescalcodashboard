@@ -6,8 +6,6 @@ $(document).ready(function(){
     var viewType = "Bilhetes";
     $('.content-area').html(getContent(currentPage));
     //CHART
-    $('#chart').height = $('#chart').parent.height;
-    $('#chart').width = $('#chart').parent.width;
     var chart = createChart();
     //----
     updateTable(viewType);
@@ -258,6 +256,7 @@ $(document).ready(function(){
                     ]
                 };
             var i = 0;
+            var money = 0;
             $.get("/api/get-tickets", function(data, status){
                 data.forEach(function(ticket){
                     if(ticket != null && date == null){
@@ -275,6 +274,7 @@ $(document).ready(function(){
                             <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>`
                         tickets = ticketDom + tickets;
+                        money += parseInt(ticket.price);
                     } else if(ticket != null && date != null) {
                         if(date.includes('/')){
                             var ticketDateArray = ticket.datetime.split(" ")[0].split('-');
@@ -299,6 +299,7 @@ $(document).ready(function(){
                                     <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                                 </tr>`
                                 tickets = ticketDom + tickets;
+                                money += parseInt(ticket.price);
                             }
 
                         } else if(ticket.datetime.startsWith(date)){
@@ -316,11 +317,13 @@ $(document).ready(function(){
                                 <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                             </tr>`
                             tickets = ticketDom + tickets;
+                            money += parseInt(ticket.price);
                             }  
                         }
                     i++;
                 });
                 $('.table-body').html(tickets);
+                $('#money').html("<em>Total Faturação: </em>" + money + " €");
                 chart.data = dataChart;
                 chart.update();
                 $('.delete-ticket').click(function(){
@@ -359,6 +362,7 @@ $(document).ready(function(){
                   ]
                 };
             var i = 0;
+            var money = 0;
             $.get("/api/get-bar", function(data, status){
                 data.forEach(function(bar){
                     if(bar != null && date == null){
@@ -376,6 +380,7 @@ $(document).ready(function(){
                             <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>`
                         bars = barDom + bars;
+                        money += parseInt(bar.price);
                     } else if(bar != null && date != null) {
                         if(date.includes('/')){
                             var barDateArray = bar.datetime.split(" ")[0].split('-');
@@ -400,6 +405,7 @@ $(document).ready(function(){
                                     <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                                 </tr>`
                                 bars = barDom + bars;
+                                money += parseInt(bar.price);
                             } 
                         } else if(bar.datetime.startsWith(date)){
                             var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)];
@@ -416,12 +422,14 @@ $(document).ready(function(){
                                 <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                             </tr>`
                             bars = barDom + bars;
+                            money += parseInt(bar.price);
                         }
                     }
                     i++;
                 });
                 chart.data = dataChart;
                 chart.update();
+                $('#money').html("Total de Faturação: " + money + " €");
                 $('.table-body').html(bars);
                 $('.delete-bar').click(function(){
                     const id = this.id;
