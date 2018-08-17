@@ -274,7 +274,7 @@ $(document).ready(function(){
                             <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>`
                         tickets = ticketDom + tickets;
-                        money += parseInt(ticket.price);
+                        money += parseFloat(ticket.price);
                     } else if(ticket != null && date != null) {
                         if(date.includes('/')){
                             var ticketDateArray = ticket.datetime.split(" ")[0].split('-');
@@ -299,7 +299,7 @@ $(document).ready(function(){
                                     <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                                 </tr>`
                                 tickets = ticketDom + tickets;
-                                money += parseInt(ticket.price);
+                                money += parseFloat(ticket.price);
                             }
 
                         } else if(ticket.datetime.startsWith(date)){
@@ -317,7 +317,7 @@ $(document).ready(function(){
                                 <td><button type="button" class="btn btn-default delete-ticket" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                             </tr>`
                             tickets = ticketDom + tickets;
-                            money += parseInt(ticket.price);
+                            money += parseFloat(ticket.price);
                             }  
                         }
                     i++;
@@ -380,7 +380,7 @@ $(document).ready(function(){
                             <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>`
                         bars = barDom + bars;
-                        money += parseInt(bar.price);
+                        money += parseFloat(bar.price);
                     } else if(bar != null && date != null) {
                         if(date.includes('/')){
                             var barDateArray = bar.datetime.split(" ")[0].split('-');
@@ -405,7 +405,7 @@ $(document).ready(function(){
                                     <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                                 </tr>`
                                 bars = barDom + bars;
-                                money += parseInt(bar.price);
+                                money += parseFloat(bar.price);
                             } 
                         } else if(bar.datetime.startsWith(date)){
                             var thisvalue = dataChart.datasets[0].data[dataChart.labels.indexOf(bar.item)];
@@ -422,7 +422,7 @@ $(document).ready(function(){
                                 <td><button type="button" class="btn btn-default delete-bar" id="`+i+`"><i class="fas fa-trash-alt"></i></button></td>
                             </tr>`
                             bars = barDom + bars;
-                            money += parseInt(bar.price);
+                            money += parseFloat(bar.price);
                         }
                     }
                     i++;
